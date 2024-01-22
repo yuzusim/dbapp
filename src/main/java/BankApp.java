@@ -1,25 +1,27 @@
+import dao.BankDAO;
 import db.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class BankApp {
     public static void main(String[] args) {
-        Connection conn = DBConnection.getInstance();
-        // 이미 만들어진 버퍼를 활용
-        try {
-            String delete = "DELETE FROM account_tb WHERE number = ?";
-            PreparedStatement pstmt = conn.prepareStatement(delete);
-            pstmt.setInt(1, 1);
+        Scanner sc = new Scanner(System.in);
 
-            int num = pstmt.executeUpdate(); // flash
-            System.out.println(num);
-        } catch (Exception e) { //SQLException --> Exception 바꾸고 부모로 퉁침 멀티 트라이 캐치 안해도 됨
-            throw new RuntimeException(e);
+        System.out.print("삭제할 계좌번호를 입력해 주세요: ");
+        int number = sc.nextInt();
+
+        BankDAO dao = new BankDAO();
+
+        int result = dao.deleteByNumber(number);
+
+        if(result == 1){
+            System.out.println("삭제 성공했습니다");
+        }else{
+            System.out.println("삭제 실패했습니다");
         }
-
-
     }
 }
 

@@ -16,21 +16,14 @@ public class DBConnectionTest {
     // @Test 붙이면 메서드 별로 실행가능
     @Test
     public void getInstance_test(){
-        String username = "root";
-        String password ="1234";
-        String url = "jdbc:mariadb://localhost:3306/cosdb";
-        // 마리아디비 연결 프로토콜명을 찾아야 한다.
-        // DBMS 테이블까지 접근 가능하다.
+        // given = 파라미터 매개변수 직접 적음
 
-        // 프로토콜이 적용된 소켓
-        try {
-            Connection conn = DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
-            throw new RuntimeException(e); // JVM한테 던짐
-        }
+        // when = 본 코드 실행 -> 본코드의 메서드를 바로 실행해봄
+        Connection conn = DBConnection.getInstance();
 
-        // 유저 네임 부터 틀려봄 -> 디버깅 해봄
-        //
+        //then = 검증
+
+
 
     }
 }
