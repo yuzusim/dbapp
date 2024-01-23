@@ -1,29 +1,28 @@
+import controller.BankeController;
+import dao.Account;
 import dao.BankDAO;
 import db.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class BankApp {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        String url = "selectAll";
 
-        System.out.print("삭제할 계좌번호를 입력해 주세요: ");
-        int number = sc.nextInt();
 
+        // 누구도 만들 책임이 없는 것은 메인에서 만든다.
         BankDAO dao = new BankDAO();
+        BankeController con = new BankeController(dao); // 의존성 주입
 
-        int result = dao.deleteByNumber(number);
+        Dispatcher dis = new Dispatcher(con); // Controller에 의존, 생서자로 만들어 준다.
+        dis.router(url);
 
-        if(result == 1){
-            System.out.println("삭제 성공했습니다");
-        }else{
-            System.out.println("삭제 실패했습니다");
-        }
+
     }
 }
-
 
 
